@@ -15,7 +15,7 @@ class Authentication(DomainObject):
         '''
         Constructor
         '''
-        # Handler dictionary
+        # Handler dictionary    
         handler = dict()
         handler['eci'] = self.eci
         handler['cavv'] = self.cavv
@@ -23,6 +23,8 @@ class Authentication(DomainObject):
         handler['threeDEnrollment'] = self.threeDEnrollment
         handler['threeDResult'] = self.threeDResult
         handler['signatureStatus'] = self.signatureStatus
+        handler['threeDSecureVersion']= self.threeDSecureVersion
+        handler['directoryServerTransactionId']= self.directoryServerTransactionId
         
         if obj is not None:
             self.setProperties(obj, handler=handler)
@@ -64,3 +66,16 @@ class Authentication(DomainObject):
     '''
     def signatureStatus(self, signature_status):
         self.__dict__['signatureStatus'] = signature_status
+        
+    '''
+    Property threeDSecure Version
+    '''
+    def threeDSecureVersion(self,threedsecure_version):
+        self.__dict__['threeDSecureVersion']= threedsecure_version
+
+    '''
+    Property directoryServerTransaction Id
+    '''
+    def directoryServerTransactionId(self,directoryServer_transactionId):
+        self.__dict__['directoryServerTransactionId']= directoryServer_transactionId
+
