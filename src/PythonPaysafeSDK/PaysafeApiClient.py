@@ -14,6 +14,8 @@ from PythonPaysafeSDK.DirectDebit.DirectDebitService import \
                                     DirectDebitService
 from PythonPaysafeSDK.ThreeDSecure.ThreeDSecureService import \
                                     ThreeDSecureService
+from PythonPaysafeSDK.ThreeDSecureV2.ThreeDSecureV2Service import \
+                                    ThreeDSecureV2Service                                            
 from PythonPaysafeSDK.common.DomainObject import DomainObject
 from PythonPaysafeSDK.common.Error import Error
 from bin.Environment import Environment
@@ -26,6 +28,7 @@ customer_vault_obj = None
 card_payment_obj = None
 direct_debit_obj = None
 three_d_secure_obj = None
+three_d_secure_v2_obj=None
 
 
 class PaysafeApiClient(object):
@@ -96,6 +99,19 @@ class PaysafeApiClient(object):
             three_d_secure_obj = ThreeDSecureService(self)
         
         return (three_d_secure_obj)
+
+    '''
+    ThreeDSecureV2ServiceHandler
+    '''
+    def three_d_secure_v2_service_handler(self):
+        #Instance of class ThreeDSecureV2Service
+        global three_d_secure_v2_obj 
+        if three_d_secure_v2_obj is None:
+            three_d_secure_v2_obj = ThreeDSecureV2Service(self)
+        
+        return(three_d_secure_v2_obj)
+ 
+
         
     '''
     Authorization Handler for API
@@ -197,11 +213,11 @@ class PaysafeApiClient(object):
             # Request Data is Required
             else:
                 # Print Request
-                # print("\nRequest to server ======= > ", self.serialize(data))
+                #print("\nRequest to server ======= > ", self.serialize(data))
                 response = self._environment._pool.urlopen(
                                                     req_method, 
                                                     url, 
-                                                    body=self.serialize(data))
+                                                    body=self.serialize(data))                
             # Request: DELETE (for Customer Vault Service only)
             # Response: Response Status Code 200, if Success
             if req_method is 'DELETE' and response.data.__len__() is 0:
